@@ -24,14 +24,17 @@ This part modifies an Nginx container to serve a custom webpage at http://localh
 2. **Run the container:**
    sh
    docker run -d -p 80:80 modified-nginx
-![image](https://github.com/user-attachments/assets/2e82ec8c-a797-46e3-aea0-8ceee8623b7d)
+   
+![image](https://github.com/user-attachments/assets/6953526e-d044-4e37-8bca-d9a33a7fde98)
+)
 
-3. *Verify the output:*
+4. *Verify the output:*
    sh
    [htttp://localhost/ELL887](http://localhost/ELL887)
 
-   OUTPUT: "Hello world! I am Saurabh Singh Balke".
-![image](https://github.com/user-attachments/assets/3e8629d2-aacb-4ee6-bbd7-fa8ecfc6ca1e)
+   OUTPUT: "Hello world! I am Your Aditya Prakash".
+![image](https://github.com/user-attachments/assets/67565b47-4c72-4d9f-b1b0-5b161ca9515e)
+)
 
    
 ## Part 2: Creating and Pushing a Container
