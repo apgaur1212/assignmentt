@@ -18,19 +18,19 @@ This part modifies an Nginx container to serve a custom webpage at http://localh
 
 ### Steps to Run:
 1. *Build the container:*
-   sh
+   ```sh
    docker build -t modified-nginx .
 
 2. **Run the container:**
-   sh
+   ```sh
    docker run -d -p 80:80 modified-nginx
    
 ![image](https://github.com/user-attachments/assets/6953526e-d044-4e37-8bca-d9a33a7fde98)
 )
 
 4. *Verify the output:*
-   sh
-   [htttp://localhost/ELL887](http://localhost/ELL887)
+   ```sh
+   (htttp://localhost/ELL887)
 
    OUTPUT: "Hello world! I am Your Aditya Prakash".
 ![image](https://github.com/user-attachments/assets/67565b47-4c72-4d9f-b1b0-5b161ca9515e)
@@ -48,46 +48,43 @@ This part containerizes a Python program that prints "Hello world!! I am Aditya 
 - `index.html` (to display the required message)
 
 ### Steps to Run:
-A. **Run the python program container**
-1. **Build the python container:**
+
+**1. Push Python Image to Docker Hub :**
    sh
-   docker build -t  .
+   docker push apgaur8004/ell887:v1
 
-2. *Run the container:*
-   sh
-   docker run part_2
+**2. Run the Python Container:**
 
-3. **Verify the output:**
-   sh
-   OUTPUT: "Hello world!! I am saurabh singh balke (2024EET2397)".
-![image](https://github.com/user-attachments/assets/78a262bb-2b73-4c29-8026-48ef21981227)
+   docker run apgaur8004/ell887:v1
 
 
-B. *Start the Database using Docker Compose*
-1. *Run the services(c++ ap + MySql database)*
    
-   sh
-    docker-compose up
-
-2. **Use different terminal to use MySql**
-   sh
-     docker exec -it mysql-db mysql -u root -p
-     #password: admin@1
-
-3. *Repositories pull command*
-   sh
-    docker pull saurabhbalke/ell887:app 
-    docker pull saurabhbalke/ell887:db 
+   OUTPUT: "Hello world!! I am Aditya Prakash".
+   
+![image](https://github.com/user-attachments/assets/1509fe2a-755b-463a-a8a8-ad61ae550e5c)
+)
 
 
-For connecting the cpp and MySQL, I have used the left side docker-compose file and submitted the (right side image_ docker-compose file in which I have updated the image as docker repositories.
+### 3. Pull MySQL Image:
 
-![Screenshot from 2025-02-06 15-57-27](https://github.com/user-attachments/assets/5c7db5b3-7915-4a3f-8897-d11ec134f13d) ![image](https://github.com/user-attachments/assets/90c16f5b-500a-40f5-b094-d8163e1bddfd)
+   docker pull mysql:latest
+   
+### 4. Tag MySQL Image
+   docker pull mysql:latest
 
-4. **To verify the output**
-   sh
-   docker compose up
-![image](https://github.com/user-attachments/assets/a889b770-84ab-4d42-a5c7-4f03477a0eb2)
+### 5. Push MySQL Image to Docker Hub
+docker push apgaur8004/ell887:mysql
+
+### 6. Run MySQL Container
+docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=mydb -e MYSQL_USER=apgaur8004 -e MYSQL_PASSWORD=password apgaur8004/ell887:mysql
+
+### 7. Verify MySQL Container
+docker ps
+
+
+
+![image](https://github.com/user-attachments/assets/1ba33e3d-bc19-4a9b-864e-4a2ec9f311ae)
+)
 
 
 ## Part 3: Modifying an Existing Web Server Container
@@ -96,27 +93,32 @@ For connecting the cpp and MySQL, I have used the left side docker-compose file 
 Deploy a web server in a Kubernetes cluster using Minikube. web server runs on port 30001
 
 ### Files Provided:
-- deployment.yaml (K8s Deployment & service for the web server)
+- webserver-deployment.yaml
+- webserver-service.yaml
 
 ### Steps to Run:
-1. *Apply the Kubernetes configuration using:*
-   sh
-   kubectl apply -f deployment.yaml
+1. **Start Minikube**
+   ```sh
+   minikube start
 
-2. **check the running pods using:**
-   sh
-   kubectl get pods
+3. **Apply the Kubernetes configurations:**
+   ```sh
+   kubectl apply -f webserver-deployment.yaml
+   kubectl apply -f webserver-service.yaml
    
-3. *check the service pods using (wait until webserver pod is in running state the use below cmd):*
-   sh
+4. *Verify the deployment:*
+   ```sh
+   kubectl get deployments
+   kubectl get pods
+   kubectl get services
+
+5. *Access the web server:*
+   ```sh
    minikube service webserver-service
 
-![image](https://github.com/user-attachments/assets/0d000183-f0dd-4119-ab95-52a033d69e52)
+![image](https://github.com/user-attachments/assets/d37d632b-6c86-4fbc-87fb-9651a6e33b0b)
+)
+   OUTPUT: nginx web page
 
-4. **Access the web server using:**
-   sh
-   [htttp://<minikube-ip>:30001](htttp://<minikube-ip>:30001)
-
-   OUTPUT: nginx web page.
-
-![Screenshot from 2025-02-06 15-19-53](https://github.com/user-attachments/assets/bea9ae8d-4378-4470-9f66-b8bd9f9c62e4)
+![image](https://github.com/user-attachments/assets/52492ef3-5b93-4063-bc93-27fa7c8781ed)
+)
